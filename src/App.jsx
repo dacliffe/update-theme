@@ -274,7 +274,7 @@ function App() {
     return (
       <Frame>
         <Page title="Shopify Theme Merger">
-          <div style={{ paddingBottom: '40px' }}>
+          <div style={{ paddingBottom: '60px' }}>
             <Layout>
             <Layout.Section>
               <Card sectioned>
@@ -311,7 +311,7 @@ function App() {
   return (
     <Frame>
       <Page title="Theme Content Merger" subtitle={`Connected to: ${shop}`}>
-        <div style={{ paddingBottom: '40px' }}>
+        <div style={{ paddingBottom: '60px' }}>
           <Layout>
             <Layout.Section>
               <Banner status="info">
