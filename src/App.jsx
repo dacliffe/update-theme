@@ -276,31 +276,31 @@ function App() {
         <Page title="Shopify Theme Merger">
           <div style={{ paddingBottom: '60px' }}>
             <Layout>
-            <Layout.Section>
-              <Card sectioned>
-                <BlockStack gap="400">
-                  <Text variant="headingMd" as="h2">
-                    Connect Your Shopify Store
-                  </Text>
-                  <Text>Enter your shop domain to authenticate and start merging themes.</Text>
-                  <input
-                    type="text"
-                    placeholder="your-store.myshopify.com"
-                    value={shop}
-                    onChange={(e) => setShop(e.target.value)}
-                    style={{
-                      padding: '10px',
-                      borderRadius: '4px',
-                      border: '1px solid #ccc',
-                      fontSize: '14px',
-                    }}
-                  />
-                  <Button primary onClick={handleAuthenticate}>
-                    Connect Store
-                  </Button>
-                </BlockStack>
-              </Card>
-            </Layout.Section>
+              <Layout.Section>
+                <Card sectioned>
+                  <BlockStack gap="400">
+                    <Text variant="headingMd" as="h2">
+                      Connect Your Shopify Store
+                    </Text>
+                    <Text>Enter your shop domain to authenticate and start merging themes.</Text>
+                    <input
+                      type="text"
+                      placeholder="your-store.myshopify.com"
+                      value={shop}
+                      onChange={(e) => setShop(e.target.value)}
+                      style={{
+                        padding: '10px',
+                        borderRadius: '4px',
+                        border: '1px solid #ccc',
+                        fontSize: '14px',
+                      }}
+                    />
+                    <Button primary onClick={handleAuthenticate}>
+                      Connect Store
+                    </Button>
+                  </BlockStack>
+                </Card>
+              </Layout.Section>
             </Layout>
           </div>
         </Page>
@@ -330,19 +330,85 @@ function App() {
                     Select Themes
                   </Text>
 
-                  <Select
-                    label="Source Theme (copy content FROM)"
-                    options={[{ label: 'Select a theme...', value: '' }, ...themeOptions]}
-                    value={sourceTheme}
-                    onChange={setSourceTheme}
-                  />
+                  <div>
+                    <Select
+                      label="Source Theme (copy content FROM)"
+                      options={[{ label: 'Select a theme...', value: '' }, ...themeOptions]}
+                      value={sourceTheme}
+                      onChange={setSourceTheme}
+                    />
+                    {sourceTheme && (
+                      <div style={{ marginTop: '8px' }}>
+                        <InlineStack gap="200">
+                          <Text variant="bodySm" as="span" color="subdued">Preview:</Text>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/?preview_theme_id=${sourceTheme}`}
+                            external
+                          >
+                            Homepage
+                          </Button>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/products/example?preview_theme_id=${sourceTheme}`}
+                            external
+                          >
+                            Product Page
+                          </Button>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/collections/all?preview_theme_id=${sourceTheme}`}
+                            external
+                          >
+                            Collection Page
+                          </Button>
+                        </InlineStack>
+                      </div>
+                    )}
+                  </div>
 
-                  <Select
-                    label="Target Theme (copy content TO)"
-                    options={[{ label: 'Select a theme...', value: '' }, ...themeOptions]}
-                    value={targetTheme}
-                    onChange={setTargetTheme}
-                  />
+                  <div>
+                    <Select
+                      label="Target Theme (copy content TO)"
+                      options={[{ label: 'Select a theme...', value: '' }, ...themeOptions]}
+                      value={targetTheme}
+                      onChange={setTargetTheme}
+                    />
+                    {targetTheme && (
+                      <div style={{ marginTop: '8px' }}>
+                        <InlineStack gap="200">
+                          <Text variant="bodySm" as="span" color="subdued">Preview:</Text>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/?preview_theme_id=${targetTheme}`}
+                            external
+                          >
+                            Homepage
+                          </Button>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/products/example?preview_theme_id=${targetTheme}`}
+                            external
+                          >
+                            Product Page
+                          </Button>
+                          <Button
+                            plain
+                            size="slim"
+                            url={`https://${shop}/collections/all?preview_theme_id=${targetTheme}`}
+                            external
+                          >
+                            Collection Page
+                          </Button>
+                        </InlineStack>
+                      </div>
+                    )}
+                  </div>
 
                   <Button
                     primary
