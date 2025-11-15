@@ -33,6 +33,7 @@ Fill in the following details:
 - **Allowed redirection URL(s)**: Leave blank for now
 
 **Important**: Under "App setup", make sure:
+
 - **Distribution**: Custom app (for specific stores)
 - **Embed your app**: The app will be embedded in Shopify admin (default)
 

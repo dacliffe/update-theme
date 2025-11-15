@@ -104,29 +104,8 @@ if (process.env.NODE_ENV !== 'production') {
       return next();
     }
     
-    // Inject API key into HTML for App Bridge
-    const html = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Theme Content Merger</title>
-    <script>
-      window.ENV = {
-        SHOPIFY_API_KEY: '${process.env.SHOPIFY_API_KEY}'
-      };
-    </script>
-    <script type="module" crossorigin src="/assets/index.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index.css">
-</head>
-<body>
-    <div id="root"></div>
-</body>
-</html>
-    `.trim();
-    
-    res.send(html);
+    // Send the built index.html
+    res.sendFile(path.join(distPath, 'index.html'));
   });
 }
 
