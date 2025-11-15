@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import {
-  AppProvider,
   Page,
   Card,
   Layout,
@@ -18,7 +17,6 @@ import {
   Toast,
   EmptyState,
 } from '@shopify/polaris';
-import enTranslations from '@shopify/polaris/locales/en.json';
 
 function App() {
   const [shop, setShop] = useState('');
@@ -274,46 +272,43 @@ function App() {
 
   if (!isAuthenticated) {
     return (
-      <AppProvider i18n={enTranslations}>
-        <Frame>
-          <Page title="Shopify Theme Merger">
-            <Layout>
-              <Layout.Section>
-                <Card sectioned>
-                  <BlockStack gap="400">
-                    <Text variant="headingMd" as="h2">
-                      Connect Your Shopify Store
-                    </Text>
-                    <Text>Enter your shop domain to authenticate and start merging themes.</Text>
-                    <input
-                      type="text"
-                      placeholder="your-store.myshopify.com"
-                      value={shop}
-                      onChange={(e) => setShop(e.target.value)}
-                      style={{
-                        padding: '10px',
-                        borderRadius: '4px',
-                        border: '1px solid #ccc',
-                        fontSize: '14px',
-                      }}
-                    />
-                    <Button primary onClick={handleAuthenticate}>
-                      Connect Store
-                    </Button>
-                  </BlockStack>
-                </Card>
-              </Layout.Section>
-            </Layout>
-          </Page>
-        </Frame>
-      </AppProvider>
+      <Frame>
+        <Page title="Shopify Theme Merger">
+          <Layout>
+            <Layout.Section>
+              <Card sectioned>
+                <BlockStack gap="400">
+                  <Text variant="headingMd" as="h2">
+                    Connect Your Shopify Store
+                  </Text>
+                  <Text>Enter your shop domain to authenticate and start merging themes.</Text>
+                  <input
+                    type="text"
+                    placeholder="your-store.myshopify.com"
+                    value={shop}
+                    onChange={(e) => setShop(e.target.value)}
+                    style={{
+                      padding: '10px',
+                      borderRadius: '4px',
+                      border: '1px solid #ccc',
+                      fontSize: '14px',
+                    }}
+                  />
+                  <Button primary onClick={handleAuthenticate}>
+                    Connect Store
+                  </Button>
+                </BlockStack>
+              </Card>
+            </Layout.Section>
+          </Layout>
+        </Page>
+      </Frame>
     );
   }
 
   return (
-    <AppProvider i18n={enTranslations}>
-      <Frame>
-        <Page title="Theme Content Merger" subtitle={`Connected to: ${shop}`}>
+    <Frame>
+      <Page title="Theme Content Merger" subtitle={`Connected to: ${shop}`}>
           <Layout>
             <Layout.Section>
               <Banner status="info">
@@ -656,7 +651,6 @@ function App() {
           {toast}
         </Page>
       </Frame>
-    </AppProvider>
   );
 }
 

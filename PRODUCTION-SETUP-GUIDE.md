@@ -191,7 +191,7 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 Fill in:
 
 - **App URL**: `https://update-theme.onrender.com/shopify`
-  
+
   ⚠️ **Important**: Use `/shopify` at the end, not just the base URL
 
 - **Allowed redirection URL(s)**: `https://update-theme.onrender.com/api/auth/callback`
@@ -413,6 +413,7 @@ This usually happens when the App URL in Shopify Partners is incorrect.
 4. Ask the client to refresh the app in their Shopify admin
 
 **Other causes**:
+
 - The server isn't serving static files in production mode
 - Check that `NODE_ENV=production` is set in environment variables
 - Verify the build created a `dist` folder with your frontend files
