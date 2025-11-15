@@ -274,7 +274,8 @@ function App() {
     return (
       <Frame>
         <Page title="Shopify Theme Merger">
-          <Layout>
+          <div style={{ paddingBottom: '40px' }}>
+            <Layout>
             <Layout.Section>
               <Card sectioned>
                 <BlockStack gap="400">
@@ -300,7 +301,8 @@ function App() {
                 </BlockStack>
               </Card>
             </Layout.Section>
-          </Layout>
+            </Layout>
+          </div>
         </Page>
       </Frame>
     );
@@ -309,6 +311,7 @@ function App() {
   return (
     <Frame>
       <Page title="Theme Content Merger" subtitle={`Connected to: ${shop}`}>
+        <div style={{ paddingBottom: '40px' }}>
           <Layout>
             <Layout.Section>
               <Banner status="info">
@@ -648,9 +651,10 @@ function App() {
               </Layout.Section>
             )}
           </Layout>
-          {toast}
-        </Page>
-      </Frame>
+        </div>
+        {toast}
+      </Page>
+    </Frame>
   );
 }
 
