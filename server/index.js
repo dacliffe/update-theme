@@ -54,6 +54,19 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Handle Shopify app installation/access
+// This catches requests from Shopify admin when app is clicked
+app.get('/shopify', (req, res) => {
+  const { shop, host } = req.query;
+  
+  if (!shop) {
+    return res.status(400).send('Missing shop parameter. Please install this app from your Shopify admin.');
+  }
+  
+  // Redirect to OAuth flow
+  res.redirect(`/api/auth/shopify?shop=${shop}${host ? `&host=${host}` : ''}`);
+});
+
 // In development, proxy non-API requests to Vite dev server
 if (process.env.NODE_ENV !== 'production') {
   console.log('📦 Development mode: Proxying to Vite dev server on port 5173');

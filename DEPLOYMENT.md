@@ -100,7 +100,7 @@ In Render dashboard, add the following environment variables:
 - `SHOPIFY_API_KEY` - Your Shopify API key
 - `SHOPIFY_API_SECRET` - Your Shopify API secret
 - `SCOPES` - `read_themes,write_themes`
-- `HOST` - Your Render URL (e.g., `https://your-app.onrender.com`)
+- `HOST` - `https://update-theme.onrender.com`
 - `SESSION_SECRET` - Generate with: `openssl rand -base64 32`
 - `NODE_ENV` - `production`
 - `PORT` - `3000` (optional, Render sets this automatically)
@@ -263,7 +263,7 @@ Production environment variables:
 SHOPIFY_API_KEY=your_production_api_key
 SHOPIFY_API_SECRET=your_production_api_secret
 SCOPES=read_themes,write_themes
-HOST=https://your-production-domain.com
+HOST=https://update-theme.onrender.com
 PORT=3000
 NODE_ENV=production
 SESSION_SECRET=your_strong_random_secret
