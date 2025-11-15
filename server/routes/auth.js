@@ -5,7 +5,7 @@ const router = express.Router();
 
 // Start OAuth flow
 router.get('/shopify', async (req, res) => {
-  const { shop } = req.query;
+  const { shop, embedded } = req.query;
 
   if (!shop) {
     return res.status(400).json({ error: 'Missing shop parameter' });
@@ -14,8 +14,31 @@ router.get('/shopify', async (req, res) => {
   try {
     const sanitizedShop = shopify.utils.sanitizeShop(shop, true);
     console.log('🔐 Starting OAuth for shop:', sanitizedShop);
+    
+    // For embedded apps, we need to break out of the iframe for OAuth
+    // Check if we're in an iframe and need to redirect the parent
+    if (embedded !== '1') {
+      // First time - send HTML to break out of iframe
+      return res.send(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <script>
+              if (window.top !== window.self) {
+                // We're in an iframe, break out
+                window.top.location.href = '/api/auth/shopify?shop=${sanitizedShop}&embedded=1';
+              } else {
+                // Already in top window, continue
+                window.location.href = '/api/auth/shopify?shop=${sanitizedShop}&embedded=1';
+              }
+            </script>
+          </head>
+          <body>Redirecting...</body>
+        </html>
+      `);
+    }
 
-    // shopify.auth.begin handles the redirect when rawRequest/rawResponse are provided
+    // Now we're in the top window, proceed with OAuth
     await shopify.auth.begin({
       shop: sanitizedShop,
       callbackPath: '/api/auth/callback',
@@ -25,12 +48,10 @@ router.get('/shopify', async (req, res) => {
     });
 
     console.log('✅ OAuth redirect sent');
-    // No need to call res.redirect() - shopify.auth.begin already did it
   } catch (error) {
     console.error('❌ Auth error:', error.message);
     console.error('Full error:', error);
 
-    // Only send error response if headers haven't been sent yet
     if (!res.headersSent) {
       res.status(500).json({
         error: 'Failed to start authentication',

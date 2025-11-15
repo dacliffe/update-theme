@@ -28,6 +28,7 @@ export const shopify = shopifyApi({
   hostScheme: 'https',
   apiVersion: LATEST_API_VERSION,
   isEmbeddedApp: true, // Embedded app - loads in Shopify admin
+  useOnlineTokens: false,
 });
 
 // Log configuration (without secrets)
@@ -38,9 +39,12 @@ console.log('   Scopes:', process.env.SCOPES);
 console.log('   API Version:', LATEST_API_VERSION);
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true,
+}));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.SESSION_SECRET || 'your-secret-key'));
 
 // Store sessions in memory (use a database for production)
 export const sessionStorage = new Map();
