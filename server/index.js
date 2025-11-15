@@ -2,11 +2,17 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { shopifyApi, LATEST_API_VERSION } from '@shopify/shopify-api';
 import '@shopify/shopify-api/adapters/node';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import themeRoutes from './routes/theme.js';
 import authRoutes from './routes/auth.js';
+
+// ES Module equivalents for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 dotenv.config();
 
@@ -68,6 +74,24 @@ if (process.env.NODE_ENV !== 'production') {
 
     // Use the pre-created proxy middleware
     viteProxy(req, res, next);
+  });
+} else {
+  // In production, serve static files from dist folder
+  console.log('🏭 Production mode: Serving static files from dist/');
+  
+  const distPath = path.join(__dirname, '..', 'dist');
+  
+  // Serve static files
+  app.use(express.static(distPath));
+  
+  // Handle client-side routing - send all non-API requests to index.html
+  app.get('*', (req, res, next) => {
+    // Don't serve index.html for API routes
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    
+    res.sendFile(path.join(distPath, 'index.html'));
   });
 }
 
