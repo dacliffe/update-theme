@@ -39,15 +39,17 @@ Click **"Create app"**
 1. Once the app is created, you'll see the **Configuration** tab
 2. Scroll to **"Client credentials"** section
 3. **IMPORTANT**: Copy and save these somewhere safe:
+
    - **Client ID** (this is your `SHOPIFY_API_KEY`)
    - **Client secret** (this is your `SHOPIFY_API_SECRET`)
-   
+
    ⚠️ You won't be able to see the Client secret again, so save it now!
 
 ### Step 1.5: Configure API Scopes
 
 1. Scroll down to **"Admin API access scopes"**
 2. Search for and enable these scopes:
+
    - ✅ `read_themes` - View themes
    - ✅ `write_themes` - Modify themes
 
@@ -107,41 +109,44 @@ git push -u origin main
 Fill in these settings:
 
 **Basic Settings:**
+
 - **Name**: `theme-content-merger` (or your preferred name)
 - **Region**: Choose closest to your location
 - **Branch**: `main`
 - **Root Directory**: Leave blank
 - **Environment**: `Node`
-- **Build Command**: 
+- **Build Command**:
   ```
   npm install && npm run build
   ```
-- **Start Command**: 
+- **Start Command**:
   ```
   npm start
   ```
 
 **Instance Type:**
+
 - Select **"Free"** (for testing) or **"Starter"** ($7/month - recommended for production)
 
 ### Step 2.5: Add Environment Variables
 
-Scroll down to the **"Environment Variables"** section and click **"Add Environment Variable"**. 
+Scroll down to the **"Environment Variables"** section and click **"Add Environment Variable"**.
 
 Add each of these (click "Add Environment Variable" for each one):
 
-| Key | Value | Notes |
-|-----|-------|-------|
-| `SHOPIFY_API_KEY` | Your Client ID from Step 1.4 | Paste the exact value |
-| `SHOPIFY_API_SECRET` | Your Client secret from Step 1.4 | Paste the exact value |
-| `SCOPES` | `read_themes,write_themes` | Type exactly as shown |
-| `NODE_ENV` | `production` | Type exactly as shown |
-| `SESSION_SECRET` | Generate a random string | See note below ⬇️ |
-| `HOST` | Leave blank for now | We'll add this in Step 2.7 |
+| Key                  | Value                            | Notes                      |
+| -------------------- | -------------------------------- | -------------------------- |
+| `SHOPIFY_API_KEY`    | Your Client ID from Step 1.4     | Paste the exact value      |
+| `SHOPIFY_API_SECRET` | Your Client secret from Step 1.4 | Paste the exact value      |
+| `SCOPES`             | `read_themes,write_themes`       | Type exactly as shown      |
+| `NODE_ENV`           | `production`                     | Type exactly as shown      |
+| `SESSION_SECRET`     | Generate a random string         | See note below ⬇️          |
+| `HOST`               | Leave blank for now              | We'll add this in Step 2.7 |
 
 **To generate SESSION_SECRET:**
 
 Open your terminal and run:
+
 ```bash
 openssl rand -base64 32
 ```
@@ -158,7 +163,7 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 ### Step 2.7: Get Your App URL
 
 1. Once deployed, you'll see your app URL at the top of the page
-2. It will look like: `https://theme-content-merger-xxxx.onrender.com`
+2. Your URL is: `https://update-theme.onrender.com`
 3. **Copy this URL** - you'll need it for the next steps
 
 ### Step 2.8: Update HOST Environment Variable
@@ -166,7 +171,7 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 1. In Render dashboard, go to **"Environment"** tab (left sidebar)
 2. Find the `HOST` variable
 3. Click **"Edit"** and paste your Render URL (from Step 2.7)
-4. Example: `https://theme-content-merger-xxxx.onrender.com`
+4. Value: `https://update-theme.onrender.com`
 5. Click **"Save Changes"**
 6. Render will automatically redeploy
 
@@ -185,11 +190,9 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 
 Fill in:
 
-- **App URL**: Your Render URL
-  - Example: `https://theme-content-merger-xxxx.onrender.com`
-  
-- **Allowed redirection URL(s)**: Your Render URL + callback path
-  - Example: `https://theme-content-merger-xxxx.onrender.com/api/auth/callback`
+- **App URL**: `https://update-theme.onrender.com`
+
+- **Allowed redirection URL(s)**: `https://update-theme.onrender.com/api/auth/callback`
 
 5. Click **"Save and release"** at the bottom
 
@@ -209,20 +212,19 @@ Fill in:
 
 ### Step 4.1: Get the Installation URL
 
-Create an installation URL using this format:
+Your installation URL format is:
 
 ```
-https://YOUR_RENDER_URL/?shop=CLIENT_STORE.myshopify.com
+https://update-theme.onrender.com/?shop=CLIENT_STORE.myshopify.com
 ```
 
-**Example:**
-```
-https://theme-content-merger-xxxx.onrender.com/?shop=client-store.myshopify.com
-```
+Replace `CLIENT_STORE` with your client's actual store name.
 
-Replace:
-- `YOUR_RENDER_URL` with your actual Render URL
-- `CLIENT_STORE` with your client's store name
+**Example for a store called "acme-store":**
+
+```
+https://update-theme.onrender.com/?shop=acme-store.myshopify.com
+```
 
 ### Step 4.2: Send Installation Link to Client
 
@@ -238,7 +240,7 @@ Send your client this message:
 ```
 Hi [Client Name],
 
-I've created a custom app to help manage theme content. 
+I've created a custom app to help manage theme content.
 To install it:
 
 1. Click this link: [YOUR_INSTALLATION_URL]
@@ -254,6 +256,7 @@ Let me know if you have any questions!
 
 1. When you/client visits the installation URL, you'll see the Shopify OAuth screen
 2. The screen will show:
+
    - App name: "Theme Content Merger"
    - Required permissions: "Read themes" and "Write themes"
    - Your store name
@@ -264,6 +267,7 @@ Let me know if you have any questions!
 ### Step 4.4: Verify Installation
 
 After installation, you should see:
+
 - The app loads successfully
 - A list of available themes appears
 - You can select themes and compare them
@@ -280,7 +284,6 @@ Now that everything is set up, here's how to use it:
 
 1. **Source Theme**: Select the theme you want to copy content FROM
    - Usually a staging/development copy with new content
-   
 2. **Target Theme**: Select the theme you want to copy content TO
    - Usually your main/live theme
 
@@ -313,8 +316,9 @@ Now that everything is set up, here's how to use it:
 ### Test 1: Check App is Running
 
 Visit your Render URL directly:
+
 ```
-https://theme-content-merger-xxxx.onrender.com
+https://update-theme.onrender.com
 ```
 
 You should see a redirect or the app interface.
@@ -322,8 +326,9 @@ You should see a redirect or the app interface.
 ### Test 2: Check OAuth Flow
 
 Visit with a shop parameter:
+
 ```
-https://theme-content-merger-xxxx.onrender.com/?shop=your-store.myshopify.com
+https://update-theme.onrender.com/?shop=your-store.myshopify.com
 ```
 
 You should see the Shopify login/permission screen.
@@ -344,6 +349,7 @@ You should see the Shopify login/permission screen.
 **Problem**: When visiting the app URL, you see "App not found"
 
 **Solutions**:
+
 - Check that your Render service is running (green status in dashboard)
 - Verify the `HOST` environment variable matches your Render URL exactly
 - Check Render logs for errors: Dashboard → Logs tab
@@ -353,6 +359,7 @@ You should see the Shopify login/permission screen.
 **Problem**: OAuth flow fails with an error
 
 **Solutions**:
+
 - Verify `SHOPIFY_API_KEY` and `SHOPIFY_API_SECRET` are correct
 - Check that redirect URL in Shopify Partners matches exactly: `https://your-url.onrender.com/api/auth/callback`
 - Ensure no trailing slashes in URLs
@@ -362,6 +369,7 @@ You should see the Shopify login/permission screen.
 **Problem**: After installing, the app shows "Not authenticated"
 
 **Solutions**:
+
 - Clear browser cookies and try again
 - Verify API scopes are set correctly in Partners dashboard
 - Check that `SESSION_SECRET` is set in Render environment variables
@@ -372,6 +380,7 @@ You should see the Shopify login/permission screen.
 **Problem**: The app takes a long time to load
 
 **Solutions**:
+
 - Render free tier spins down after inactivity (takes ~30 seconds to wake up)
 - Consider upgrading to Starter plan ($7/month) for always-on service
 - First load after inactivity will always be slower
@@ -381,10 +390,33 @@ You should see the Shopify login/permission screen.
 **Problem**: Merge operation fails
 
 **Solutions**:
+
 - Check Shopify API rate limits (wait a few minutes and try again)
 - Try merging fewer files at once
 - Check Render logs for specific error messages
 - Verify the target theme is not locked or published
+
+### "Cannot GET /" Error
+
+**Problem**: App loads but shows "Cannot GET /" or 404 error
+
+**Solution**:
+
+- The server isn't serving static files in production mode
+- Make sure `server/index.js` has code to serve the `dist` folder in production
+- Check that `NODE_ENV=production` is set in environment variables
+- Verify the build created a `dist` folder with your frontend files
+
+### "vite: not found" Build Error
+
+**Problem**: Build fails with "sh: vite: not found"
+
+**Solution**:
+
+- This means `vite` is in `devDependencies` instead of `dependencies`
+- Render doesn't install dev dependencies in production builds
+- Move `vite` and `@vitejs/plugin-react` to `dependencies` in `package.json`
+- Commit and push the change to trigger a new deployment
 
 ### Check Render Logs
 
@@ -418,11 +450,13 @@ Render will automatically detect the push and redeploy your app (usually takes 5
 ### Monitoring
 
 **In Render Dashboard:**
+
 - Monitor uptime and performance in **"Metrics"** tab
 - Check for errors in **"Logs"** tab
 - View deployment history in **"Events"** tab
 
 **In Shopify:**
+
 - Check API rate limit usage in Partners dashboard under your app
 
 ### Upgrading for Production
@@ -454,12 +488,14 @@ Before going live with clients:
 ## Cost Breakdown
 
 **Development (Free)**
+
 - Shopify Partner account: Free
 - Development store: Free
 - Render Free tier: Free
 - **Total**: $0/month
 
 **Production (Recommended)**
+
 - Shopify Partner account: Free
 - Render Starter: $7/month
 - (Optional) Custom domain: ~$12/year
@@ -494,23 +530,26 @@ If you run into issues:
 ## Quick Reference
 
 **Important URLs:**
+
 - Shopify Partners: https://partners.shopify.com/
 - Render Dashboard: https://dashboard.render.com/
-- Your App URL: `https://your-service.onrender.com`
-- Installation URL: `https://your-service.onrender.com/?shop=STORE.myshopify.com`
+- Your App URL: `https://update-theme.onrender.com`
+- Installation URL: `https://update-theme.onrender.com/?shop=STORE.myshopify.com`
 
 **Important Files:**
+
 - `SETUP.md` - Local development setup
 - `README.md` - App documentation and usage
 - `DEPLOYMENT.md` - Detailed deployment options
 - `WORKFLOW.md` - Common workflows and examples
 
 **Environment Variables:**
+
 ```
 SHOPIFY_API_KEY=your_client_id
 SHOPIFY_API_SECRET=your_client_secret
 SCOPES=read_themes,write_themes
-HOST=https://your-service.onrender.com
+HOST=https://update-theme.onrender.com
 NODE_ENV=production
 SESSION_SECRET=your_random_secret
 ```
@@ -518,4 +557,3 @@ SESSION_SECRET=your_random_secret
 ---
 
 **Congratulations! Your Theme Content Merger app is now live and ready to use! 🎉**
-
