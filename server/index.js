@@ -27,7 +27,7 @@ export const shopify = shopifyApi({
   hostName: process.env.HOST.replace(/https?:\/\//, ''),
   hostScheme: 'https',
   apiVersion: LATEST_API_VERSION,
-  isEmbeddedApp: true, // Embedded app for loading in Shopify admin
+  isEmbeddedApp: false, // Standalone app - opens in new window/tab
 });
 
 // Log configuration (without secrets)
@@ -52,19 +52,6 @@ app.use('/api/themes', themeRoutes);
 // Health check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
-});
-
-// Handle Shopify app installation/access
-// This catches requests from Shopify admin when app is clicked
-app.get('/shopify', (req, res) => {
-  const { shop, host } = req.query;
-  
-  if (!shop) {
-    return res.status(400).send('Missing shop parameter. Please install this app from your Shopify admin.');
-  }
-  
-  // Redirect to OAuth flow
-  res.redirect(`/api/auth/shopify?shop=${shop}${host ? `&host=${host}` : ''}`);
 });
 
 // In development, proxy non-API requests to Vite dev server

@@ -58,8 +58,8 @@ router.get('/callback', async (req, res) => {
     sessionStorage.set(session.shop, session);
     console.log('   Session stored. Total sessions:', sessionStorage.size);
 
-    // Redirect to app with shop parameter
-    res.redirect(`/?shop=${session.shop}&host=${req.query.host}`);
+    // Redirect to app with shop parameter (standalone app)
+    res.redirect(`/?shop=${session.shop}`);
   } catch (error) {
     console.error('❌ Callback error:', error);
     res.status(500).json({ error: 'Authentication failed' });

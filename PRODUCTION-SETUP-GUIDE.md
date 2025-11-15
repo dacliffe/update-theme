@@ -35,7 +35,7 @@ Fill in the following details:
 **Important**: Under "App setup", make sure:
 
 - **Distribution**: Custom app (for specific stores)
-- **Embed your app**: The app will be embedded in Shopify admin (default)
+- **App loading**: Standalone (not embedded - opens in new window/tab)
 
 Click **"Create app"**
 
@@ -195,11 +195,13 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 
 Fill in:
 
-- **App URL**: `https://update-theme.onrender.com/shopify`
-
-  ⚠️ **Important**: Use `/shopify` at the end, not just the base URL
+- **App URL**: `https://update-theme.onrender.com`
+  
+  ⚠️ **Important**: This is for when users access your app from Shopify admin. Since this is a standalone app, you may want to leave this blank or use the base URL.
 
 - **Allowed redirection URL(s)**: `https://update-theme.onrender.com/api/auth/callback`
+  
+  ⚠️ **Critical**: This MUST match exactly including the path
 
 5. Click **"Save and release"** at the bottom
 
@@ -403,19 +405,29 @@ You should see the Shopify login/permission screen.
 - Check Render logs for specific error messages
 - Verify the target theme is not locked or published
 
-### "Cannot GET /" Error
+### "Cannot GET /" or "admin.shopify.com refused to connect"
 
-**Problem**: App shows "Cannot GET /" when accessed from Shopify admin
+**Problem**: App shows errors when accessed from Shopify admin or via installation link
 
 **Solution**:
 
-This usually happens when the App URL in Shopify Partners is incorrect.
+This app is designed as a **standalone app** (not embedded). This means:
 
-1. Go to Shopify Partners dashboard → Your App → Configuration
-2. Make sure **App URL** is set to: `https://update-theme.onrender.com/shopify`
-   - Must include `/shopify` at the end
-3. Click **"Save and release"**
-4. Ask the client to refresh the app in their Shopify admin
+1. **Don't access it from Shopify admin Apps menu** - it won't work there
+2. **Use the direct installation URL** instead:
+   ```
+   https://update-theme.onrender.com/?shop=CLIENT_STORE.myshopify.com
+   ```
+3. The app will open in a new window/tab (not inside Shopify admin)
+
+**To Fix Shopify Partners Configuration:**
+
+1. Go to Partners dashboard → Your App → Configuration
+2. **App URL**: Can leave blank or set to `https://update-theme.onrender.com`
+3. **Allowed redirection URL(s)**: MUST be `https://update-theme.onrender.com/api/auth/callback`
+4. **Distribution**: Custom app
+5. **App loading**: Should be "Standalone" (not embedded)
+6. Click **"Save and release"**
 
 **Other causes**:
 
@@ -549,9 +561,9 @@ If you run into issues:
 
 - Shopify Partners: https://partners.shopify.com/
 - Render Dashboard: https://dashboard.render.com/
-- Your App URL (for Shopify config): `https://update-theme.onrender.com/shopify`
-- Direct Installation URL: `https://update-theme.onrender.com/?shop=STORE.myshopify.com`
-- OAuth Callback URL: `https://update-theme.onrender.com/api/auth/callback`
+- Your App URL (for Shopify config): `https://update-theme.onrender.com` (optional for standalone apps)
+- Installation URL: `https://update-theme.onrender.com/?shop=STORE.myshopify.com`
+- OAuth Callback URL: `https://update-theme.onrender.com/api/auth/callback` (MUST be exact)
 
 **Important Files:**
 
