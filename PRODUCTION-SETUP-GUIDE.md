@@ -196,11 +196,11 @@ Copy the output and paste it as the value for `SESSION_SECRET`.
 Fill in:
 
 - **App URL**: `https://update-theme.onrender.com`
-  
+
   ⚠️ **Important**: This is for when users access your app from Shopify admin. Since this is a standalone app, you may want to leave this blank or use the base URL.
 
 - **Allowed redirection URL(s)**: `https://update-theme.onrender.com/api/auth/callback`
-  
+
   ⚠️ **Critical**: This MUST match exactly including the path
 
 5. Click **"Save and release"** at the bottom
